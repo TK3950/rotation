@@ -38,6 +38,7 @@ namespace rot
         /// <returns>Exit status of program</returns>
         static int Main(string[] args)
         {
+            #region Environment Setup
             Console.Title = "Caesar Cipher Comparison and Analysis Application   (C) Timothy Kersten - 2017";
             Console.WriteLine(Console.Title);
             Console.WriteLine("Source available on GitHub (https://github.com/TK3950/rotation)");
@@ -54,8 +55,9 @@ namespace rot
             
             Console.Write("Enter the rotation you would like to analyze (0-25): ");
             rotation = Convert.ToInt32(Console.ReadLine());
+            #endregion
 
-#region Heavy lifting
+            #region Heavy lifting
             Console.Write("Opening wordlist... ");
             if (System.IO.File.Exists(fpath))
             {
@@ -63,7 +65,7 @@ namespace rot
             }
             else
             {
-                Console.WriteLine("Error opening file: " + fpath + "\nPress any key to quit...");
+                Console.WriteLine("\nError opening file: " + fpath + "\nPress any key to quit...");
                 Console.ReadKey();
                 return -2;
             }
@@ -77,13 +79,28 @@ namespace rot
                 for (int j = 0; j < line.Length; j++) // for each letter in line
                 {   
                     char newchar ='?';
-                    int newint = Convert.ToInt32(Convert.ToChar(line[j]) + rotation);
-                    //
-                    if (newint > Convert.ToInt32('z')) // if rotated int overflows our acceptable range, move it back inside
+                    int newint = 0;
+                    if (Convert.ToInt32(line[j]) >= Convert.ToInt32('a') && Convert.ToInt32(line[j]) <= Convert.ToInt32('z'))
                     {
-                        newint -= 26;
+                        newint = Convert.ToInt32((line[j]) + rotation);
+                        //
+                        if (newint > Convert.ToInt32('z')) // if rotated int overflows above our acceptable range, move it back inside
+                        {
+                            newint -= 26;
+                            
+                        }
+                        newchar = Convert.ToChar(newint);
                     }
-                    newchar = Convert.ToChar(newint);
+
+                    else
+                    {
+                        newchar = Convert.ToChar(line[j]);
+                    }
+
+                    
+
+
+                    
                     newline = newline.Insert(newline.Length,Convert.ToString(newchar));
                 }
                 
