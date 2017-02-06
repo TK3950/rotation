@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * TODO: examine for error-cases
+ * TODO: look for a better compare algorithm
  */
 namespace rot
 {
@@ -22,9 +22,10 @@ namespace rot
             Console.WriteLine("Matches: ");
             {
             for (int i = 0; i < source.Length; i++)
-                if (secondary.Contains(source[i]))
-                {
-                    Console.WriteLine(source[i] + " == " + secondary[i]);
+                if (source.Contains(secondary[i])) // secondary[i] is found in source list. secondary[i] is rotated from 
+                { 
+                    // why is it not always the rotation?
+                    Console.WriteLine(source[i] + " => " + secondary[i]);
 
                 }
                 Console.WriteLine("[[DONE!]]");
@@ -32,13 +33,14 @@ namespace rot
         }
         
         /// <summary>
-        /// Main entry point for this application. It controls the input file, rotation, and output. Returns exit status of program.
+        /// Main entry point for this application. It controls the input file, rotation, and method control. Returns exit status of program.
         /// </summary>
         /// <param name="args">args[0]: path to source array file</param>
         /// <returns>Exit status of program</returns>
         static int Main(string[] args)
         {
             #region Environment Setup
+            Console.Clear();
             Console.Title = "Caesar Cipher Comparison and Analysis Application   (C) Timothy Kersten - 2017";
             Console.WriteLine(Console.Title);
             Console.WriteLine("Source available on GitHub (https://github.com/TK3950/rotation)");
