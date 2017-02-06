@@ -4,184 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 /*
- * TODO: Fine-tune operations and clean up
- *       Cleanly reduce all strings to lowercase
+ * TODO: examine for error-cases
  */
 namespace rot
 {
-
-
     class Program
-    {
-        
-
-        /// <summary>
-        /// Retrieves lowercase letter of type char at the specified position in the alphabet.
-        /// </summary>
-        /// <param name="number">Integer value 1-26 representing position in the alphabet</param>
-        /// <returns>Lowercase letter a-z</returns>
-        static char IntToChar(int number)
-        {
-
-            switch (number)
-            {
-                case 1:
-                    return 'a';
-                case 2:
-                    return 'b';
-                case 3:
-                    return 'c';
-                case 4:
-                    return 'd';
-                case 5:
-                    return 'e';
-                case 6:
-                    return 'f';
-                case 7:
-                    return 'g';
-                case 8:
-                    return 'h';
-                case 9:
-                    return 'i';
-                case 10:
-                    return 'j';
-                case 11:
-                    return 'k';
-                case 12:
-                    return 'l';
-                case 13:
-                    return 'm';
-                case 14:
-                    return 'n';
-                case 15:
-                    return 'o';
-                case 16:
-                    return 'p';
-                case 17:
-                    return 'q';
-                case 18:
-                    return 'r';
-                case 19:
-                    return 's';
-                case 20:
-                    return 't';
-                case 21:
-                    return 'u';
-                case 22:
-                    return 'v';
-                case 23:
-                    return 'w';
-                case 24:
-                    return 'x';
-                case 25:
-                    return 'y';
-                case 26:
-                    return 'z';
-            }
-#if debug
-            Console.WriteLine("Failed on " + Convert.ToString(number));
-#endif
-            return '?';
-        }
-
-
-        /// <summary>
-        /// Converts element of type char to an integer representing its position in the alphabet.
-        /// </summary>
-        /// <param name="letter">Upper or lower case letter A-Z</param>
-        /// <returns>Integer representing letter's position in alphabet.</returns>
-        static int CharToInt(char letter)
-        {
-
-            switch (letter)
-            {
-                case 'a':
-                case 'A':
-                    return 1;
-                case 'b':
-                case 'B':
-                    return 2;
-                case 'c':
-                case 'C':
-                    return 3;
-                case 'd':
-                case 'D':
-                    return 4;
-                case 'e':
-                case 'E':
-                    return 5;
-                case 'f':
-                case 'F':
-                    return 6;
-                case 'g':
-                case 'G':
-                    return 7;
-                case 'h':
-                case 'H':
-                    return 8;
-                case 'i':
-                case 'I':
-                    return 9;
-                case 'j':
-                case 'J':
-                    return 10;
-                case 'k':
-                case 'K':
-                    return 11;
-                case 'l':
-                case 'L':
-                    return 12;
-                case 'm':
-                case 'M':
-                    return 13;
-                case 'n':
-                case 'N':
-                    return 14;
-                case 'o':
-                case 'O':
-                    return 15;
-                case 'p':
-                case 'P':
-                    return 16;
-                case 'q':
-                case 'Q':
-                    return 17;
-                case 'r':
-                case 'R':
-                    return 18;
-                case 's':
-                case 'S':
-                    return 19;
-                case 't':
-                case 'T':
-                    return 20;
-                case 'u':
-                case 'U':
-                    return 21;
-                case 'v':
-                case 'V':
-                    return 22;
-                case 'w':
-                case 'W':
-                    return 23;
-                case 'x':
-                case 'X':
-                    return 24;
-                case 'y':
-                case 'Y':
-                    return 25;
-                case 'z':
-                case 'Z':
-                    return 26;
-            }
-#if debug
-            Console.WriteLine("Failed on " + Convert.ToString(letter));
-#endif
-            return 0;
-        }
-
+    {       
         /// <summary>
         /// Searches for every element of source array within a secondary array and prints matched elements to the Console
         /// </summary>
@@ -201,9 +30,7 @@ namespace rot
                 Console.WriteLine("[[DONE!]]");
             }
         }
-
-
-
+        
         /// <summary>
         /// Main entry point for this application. It controls the input file, rotation, and output. Returns exit status of program.
         /// </summary>
@@ -220,16 +47,15 @@ namespace rot
             string fpath = Environment.ExpandEnvironmentVariables(@"%userprofile%\Desktop\words.txt");
             string[] lines = { "", "" };
 
-            for (int c = 0; c < args.Length; c++)
+            for (int c = 0; c < args.Length; c++) // if there's one or more args
             {
-                fpath = args[0];
+                fpath = args[0]; // first arg is our new file path
             }
             
-
             Console.Write("Enter the rotation you would like to analyze (0-25): ");
             rotation = Convert.ToInt32(Console.ReadLine());
 
-            #region Heavy lifting
+#region Heavy lifting
             Console.Write("Opening wordlist... ");
             if (System.IO.File.Exists(fpath))
             {
@@ -246,36 +72,18 @@ namespace rot
             Console.WriteLine("Rotating words... ");
             for (int i = 0; i < lines.Length; i++) // for each line in file array
             {
-                string line = lines[i];
+                string line = lines[i].ToLower();
                 string newline = "";
                 for (int j = 0; j < line.Length; j++) // for each letter in line
                 {   
                     char newchar ='?';
-                    int newint = CharToInt(Convert.ToChar(line[j])) + rotation;
-                    
-                    if (newint < 27 && newint > 0)
-                    {
-                        newchar = IntToChar(newint);
-                    }
-                    if (newint >= 27)
+                    int newint = Convert.ToInt32(Convert.ToChar(line[j]) + rotation);
+                    //
+                    if (newint > Convert.ToInt32('z')) // if rotated int overflows our acceptable range, move it back inside
                     {
                         newint -= 26;
-                        newchar = IntToChar(newint);
                     }
-                    if (newint < 0)
-                    {
-                        Console.WriteLine("Error occured. Attempted to convert to invalid character.\nPress any key to quit\nError: " + Convert.ToString(newint));
-                        Console.ReadKey();
-                        return -1; // newwint failed check.
-                    }
-                    if (newint == 0)
-                    {
-                        newchar = line[j]; // characters not in the alphabet are simply passed through to the new word
-                                           // this includes numbers and symbols (0-9, ',`,*, etc.)
-                    }
-#if debug
-                    Console.Write(Convert.ToString(newchar));
-#endif
+                    newchar = Convert.ToChar(newint);
                     newline = newline.Insert(newline.Length,Convert.ToString(newchar));
                 }
                 
