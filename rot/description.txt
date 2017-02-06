@@ -34,7 +34,7 @@ string. Then the program enters its secondary loop. For every characer in string
 The program then calls the 'CompareStrings' method, which will search for strings that 
 occur in both lists. At the moment, this is a very "dumb" method which takes a VERY long 
 time to execute. It simply searches for every element of the source array within the 
-secondary array. I'm not certain what algorithm is used by the 'Contains' method include 
+secondary array. I'm not certain what algorithm is used by the 'Contains' method included 
 in the framework, but I am fairly certain that it can be improved upon, especially if all 
 lists are sorted alphabetically. For the time being, I will be examining how I can perform 
 a better search on these two strings.
