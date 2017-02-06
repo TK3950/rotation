@@ -1,4 +1,4 @@
-# rotation
+# Rotation - Caesar Cipher Comparison and Analysis Application
 This Command-Line application rotates a word-list according to a user specified Caesar Cipher rotation, then compares the rotated list against the source list to search for any matching entries.
 
 A sample word-list can be downloaded from https://github.com/dwyl/english-words/blob/master/words.txt?raw=true
