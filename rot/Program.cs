@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 
 /*
- * TODO: Add an easy way to adjust the source file.
- * 
+ * TODO: Fine-tune operations and clean up
+ *       Cleanly reduce all strings to lowercase
  */
 namespace rot
 {
@@ -213,7 +213,7 @@ namespace rot
         {
             Console.Title = "Caesar Cipher Comparison and Analysis Application   (C) Timothy Kersten - 2017";
             Console.WriteLine(Console.Title);
-            Console.WriteLine("Source soon available on GitHub");
+            Console.WriteLine("Source available on GitHub (https://github.com/TK3950/rotation)");
             int lastpercent = 10;
             int newpercent = 0;
             int rotation = 0;
@@ -229,7 +229,7 @@ namespace rot
             Console.Write("Enter the rotation you would like to analyze (0-25): ");
             rotation = Convert.ToInt32(Console.ReadLine());
 
-            #region Doing the work
+            #region Heavy lifting
             Console.Write("Opening wordlist... ");
             if (System.IO.File.Exists(fpath))
             {
