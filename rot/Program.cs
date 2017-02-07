@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 /*
  * TODO: look for a better compare algorithm
  */
@@ -31,6 +32,40 @@ namespace rot
                 Console.WriteLine("[[DONE!]]");
             }
         }
+
+        static void ManualCompareStrings(string[] source, string[] secondary)
+        {
+            bool matchPossible = true;
+            for (int i = 0; i < source.Length; i++) // for each line in source
+            {
+                string testword = source[i];
+                for (int j = 0; j < secondary.Length; j++) // for each line in secondary
+                {
+                    string secondword = secondary[j];
+                    for (int k = 0; k < testword.Length && k < secondword.Length; k++) // for each letter in source[i]
+                    {
+                        matchPossible = true;
+                        if (testword[k] == secondword[k]) // if letter of source[i] matches source[k]
+                        {
+                            continue;
+                        }
+
+                        else
+                        {
+                            matchPossible = false;
+                            break;
+                        }
+                    }
+                    if (matchPossible)
+                    {
+                        if (string.Equals(source[i], secondary[j]))
+                        {
+                            Console.WriteLine(source[i]);
+                        }
+                    }
+                }
+            }
+        }
         
         /// <summary>
         /// Main entry point for this application. It controls the input file, rotation, and method control. Returns exit status of program.
@@ -44,6 +79,11 @@ namespace rot
             Console.Title = "Caesar Cipher Comparison and Analysis Application   (C) Timothy Kersten - 2017";
             Console.WriteLine(Console.Title);
             Console.WriteLine("Source available on GitHub (https://github.com/TK3950/rotation)");
+
+            DateTime StartTime = DateTime.Now;
+
+            bool manual = false;
+            
             int lastpercent = 10;
             int newpercent = 0;
             int rotation = 0;
@@ -120,9 +160,22 @@ namespace rot
               // one normal, one rotated. the next portion of code should pass control
               // to comparisons methods
             Console.WriteLine("done!");
-            CompareStrings(lines, newlines);
 
-            Console.WriteLine("Execution finished successfully.\nPress any key to quit\n");
+            if (manual)
+            {
+                ManualCompareStrings(lines, newlines);
+            }
+            else
+            {
+                CompareStrings(lines, newlines);
+            }
+
+            
+
+
+            DateTime EndTime = DateTime.Now;
+            TimeSpan elapsed = EndTime - StartTime;
+            Console.WriteLine("Execution finished successfully.\nTime span: " + elapsed.ToString() + "\nPress any key to quit\n");
             Console.ReadKey();
 #endregion
             return 0; // program executed desired path, normal return
