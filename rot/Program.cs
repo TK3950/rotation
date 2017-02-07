@@ -25,7 +25,7 @@ namespace rot
                 if (source.Contains(secondary[i])) // secondary[i] is found in source list. secondary[i] is rotated from 
                 { 
                     // why is it not always the rotation?
-                    Console.WriteLine(source[i] + " => " + secondary[i]);
+                    Console.WriteLine(source[i] + "\t ===ROT===>\t" + secondary[i]);
 
                 }
                 Console.WriteLine("[[DONE!]]");
@@ -47,7 +47,7 @@ namespace rot
             int lastpercent = 10;
             int newpercent = 0;
             int rotation = 0;
-            string fpath = Environment.ExpandEnvironmentVariables(@"%userprofile%\Desktop\words.txt");
+            string fpath = Environment.ExpandEnvironmentVariables(@"..\..\words.txt");
             string[] lines = { "", "" };
 
             for (int c = 0; c < args.Length; c++) // if there's one or more args

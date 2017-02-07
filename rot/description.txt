@@ -1,14 +1,14 @@
 {{Description of algorithm}}
 
 The program begins by setting up the environment and variables, then prompts the user to 
-input the desired rotation key.To function normally, the program expects an input of type 
+input the desired rotation key. To function normally, the program expects an input of type 
 int between 0 and 25. Once the user has input their desired rotation key, the program 
 begins to open a word-list as specified in the program arguments. The first argument 
 passed to the application should be the path to your file. If no arguments are specified, 
-it defaults to opening "%userprofile\Desktop\words.txt". If the file exists, it opens the 
-file and reads every line into a string array called 'lines'. Otherwise, the program will 
-exit with status -2. A second array called 'newlines' is declared and initialized to the 
-same length as 'lines'.
+it defaults to opening "..\..\words.txt". If the file exists, it opens the file and reads 
+every line into a string array called 'lines'. Otherwise, the program will exit with status 
+-2. A second array called 'newlines' is declared and initialized to the same length as 
+'lines'.
 
 The program then enters its primary loop. For every line in the array 'lines', two local 
 strings called 'line' and 'newline' are declared. Local string 'line' is set to a 
